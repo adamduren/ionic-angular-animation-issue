@@ -1,1 +1,47 @@
+.controls-container {
+  position: absolute;
+  top: var(--ion-safe-area-top, 0);
+  left: var(--ion-safe-area-left, 0);
+  right: var(--ion-safe-area-right, 0);
+  display: flex;
+  flex-direction: column;
+}
 
+.search-results {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 0;
+
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  overflow: auto;
+  scroll-snap-type: x mandatory;
+  // https://github.com/hammerjs/hammer.js/issues/1050
+  touch-action: pan-y !important;
+
+  $summary-item-padding: 16px;
+  $summary-item-max-width: 380px;
+
+  app-appointment-summary-list-item {
+    max-width: $summary-item-max-width;
+    width: calc(100% - #{$summary-item-padding * 2});
+    margin: $summary-item-padding $summary-item-padding;
+    scroll-snap-align: center;
+  }
+
+  &.map-active {
+    app-appointment-summary-list-item {
+      margin: $summary-item-padding 0 $summary-item-padding
+        $summary-item-padding;
+
+      &:last-child {
+        max-width: $summary-item-max-width + $summary-item-padding;
+        width: 100%;
+        padding-right: $summary-item-padding;
+      }
+    }
+  }
+}
